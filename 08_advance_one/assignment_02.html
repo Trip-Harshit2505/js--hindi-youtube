@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container"></div>
+</body>
+<script>
+    const div = document.createElement("div");
+    div.setAttribute('id', 'card');
+    div.style.height = "480px";
+    div.style.width = "460px";
+    var img = document.createElement('img')
+    const h4 = document.createElement('h4')
+    const button = document.createElement("button")
+    button.innerHTML = "Show Details";
+
+    document.querySelector("#container").appendChild(div);
+    div.appendChild(img)
+    div.appendChild(h4)
+    div.appendChild(button);
+
+    let avatar;
+    let followers;
+
+    button.addEventListener('click', function(e){
+        fetch("https://api.github.com/users/hiteshchoudhary")
+    .then((response) => {
+        return response.json()
+    })
+    .then((data) => {
+        console.log(data);
+        avatar = data.avatar_url
+        // console.log(avatar);
+        img.src = avatar;
+        followers = data.followers
+        h4.textContent = followers
+        // console.log(followers);
+    })
+    .catch('Error: Something went wrong')
+    })
+</script>
+</html>
